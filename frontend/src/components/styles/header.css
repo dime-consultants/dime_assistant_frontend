@@ -1,0 +1,393 @@
+/* ═══════════════════════════════════════════════
+   header.css — Dime Executive AI
+   Clean, compact header + logout modal
+═══════════════════════════════════════════════ */
+
+/* ── Header shell ───────────────────────────── */
+.ci-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 52px;
+  min-height: 52px;
+  background: var(--bg-panel);
+  border-bottom: 1px solid var(--border-color);
+  gap: 12px;
+  flex-shrink: 0;
+  position: relative;
+  z-index: 10;
+}
+
+/* subtle top accent line */
+.ci-header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(var(--brand-rgb), 0.3),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ── Left cluster ────────────────────────────── */
+.ci-header-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+/* ── Branding text ───────────────────────────── */
+.ci-header-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.2px;
+  white-space: nowrap;
+}
+
+.ci-header-sub {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 1px;
+  white-space: nowrap;
+}
+
+/* ── Online status dot ───────────────────────── */
+.ci-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.2);
+  flex-shrink: 0;
+}
+
+/* ── Right toolbar ───────────────────────────── */
+.ci-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.ci-theme-menu {
+  position: relative;
+}
+
+.ci-theme-button-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  border: 2px solid rgba(255,255,255,0.85);
+  box-shadow: 0 0 0 1px rgba(0,0,0,0.12);
+}
+
+.ci-theme-popover {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 164px;
+  padding: 10px;
+  border-radius: 12px;
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 12px 28px rgba(0,0,0,0.16);
+  z-index: 20;
+}
+
+.ci-theme-popover-title {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-muted);
+  margin-bottom: 8px;
+}
+
+.ci-theme-options {
+  display: grid;
+  gap: 6px;
+}
+
+.ci-theme-option {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--text-primary);
+  border-radius: 8px;
+  padding: 6px 8px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 12px;
+}
+
+.ci-theme-option:hover {
+  background: var(--bg-hover);
+}
+
+.ci-theme-option.selected {
+  border-color: var(--brand);
+  background: var(--brand-dim);
+}
+
+.ci-theme-option-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,0.75);
+}
+
+/* ── Icon button ─────────────────────────────── */
+.ci-icon-btn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    background 0.14s,
+    color 0.14s;
+  flex-shrink: 0;
+}
+
+/* keep all child SVGs consistent and small */
+.ci-icon-btn svg {
+  width: 15px;
+  height: 15px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.ci-icon-btn:hover {
+  background: var(--bg-hover);
+  color: var(--text-primary);
+}
+
+.ci-icon-btn.active {
+  background: var(--brand-dim);
+  color: var(--brand);
+}
+
+.ci-icon-btn.danger:hover {
+  background: rgba(248, 81, 73, 0.1);
+  color: #f85149;
+}
+
+/* ── Notification badge ──────────────────────── */
+.ci-badge {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #f85149;
+  border: 1.5px solid var(--bg-panel);
+  pointer-events: none;
+}
+
+/* ── Vertical divider ────────────────────────── */
+.ci-divider-v {
+  width: 1px;
+  height: 20px;
+  background: var(--border-color);
+  margin: 0 6px;
+  flex-shrink: 0;
+}
+
+/* ════════════════════════════════════════════
+   LOGOUT MODAL
+════════════════════════════════════════════ */
+.logout-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  background: rgba(4, 8, 14, 0.82);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px 16px;
+  animation: overlayIn 0.18s ease;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.logout-modal {
+  position: relative;
+  width: min(380px, 100%);
+  background: var(--bg-panel);
+  border: 1px solid rgba(239, 68, 68, 0.2);
+  border-radius: 16px;
+  padding: 32px 28px 24px;
+  text-align: center;
+  animation: modalIn 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.6);
+}
+
+@keyframes modalIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* top accent stripe */
+.logout-accent-line {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(239, 68, 68, 0.55),
+    transparent
+  );
+  border-radius: 1px;
+}
+
+/* close × */
+.logout-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 26px;
+  height: 26px;
+  border-radius: 7px;
+  border: 1px solid var(--border-color);
+  background: var(--bg-hover);
+  color: var(--text-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    border-color 0.14s,
+    color 0.14s;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.logout-close:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+}
+
+/* icon circle */
+.logout-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  margin: 0 auto 18px;
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.18);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #f87171;
+}
+
+.logout-icon svg {
+  width: 22px;
+  height: 22px;
+}
+
+.logout-title {
+  font-size: 17px;
+  font-weight: 800;
+  color: var(--text-primary);
+  margin-bottom: 7px;
+  letter-spacing: -0.3px;
+}
+
+.logout-message {
+  font-size: 12px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin-bottom: 24px;
+}
+
+.logout-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.logout-cancel-btn {
+  flex: 1;
+  padding: 10px 14px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border-color);
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition:
+    border-color 0.14s,
+    color 0.14s,
+    background 0.14s;
+}
+
+.logout-cancel-btn:hover {
+  border-color: var(--brand);
+  color: var(--brand);
+  background: var(--brand-subtle);
+}
+
+.logout-confirm-btn {
+  flex: 1;
+  padding: 10px 14px;
+  background: #ef4444;
+  border: none;
+  border-radius: 9px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #fff;
+  cursor: pointer;
+  transition:
+    background 0.14s,
+    transform 0.1s;
+}
+
+.logout-confirm-btn:hover {
+  background: #dc2626;
+  transform: translateY(-1px);
+}
+
+.logout-confirm-btn:active {
+  transform: translateY(0);
+}

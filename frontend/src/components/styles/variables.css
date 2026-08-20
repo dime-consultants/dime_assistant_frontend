@@ -1,0 +1,185 @@
+/* ══════════════════════════════════════════════════════
+   variables.css — Dime Executive shared design tokens
+   Import this first in every stylesheet
+══════════════════════════════════════════════════════ */
+
+@import url("https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap");
+
+:root {
+  /* Brand */
+  --brand: #3bd2f0;
+  --brand-dim: rgba(59, 210, 240, 0.08);
+  --brand-mid: rgba(59, 210, 240, 0.15);
+  --brand-glow: rgba(59, 210, 240, 0.25);
+  --brand-dark: rgba(59, 210, 240, 0.06);
+
+  /* Backgrounds */
+  --bg: #080c10;
+  --surface: #0d1117;
+  --raised: #111820;
+  --card: #131b24;
+
+  /* Borders */
+  --border: rgba(59, 210, 240, 0.12);
+  --border-hi: rgba(59, 210, 240, 0.28);
+
+  /* Text */
+  --text: #e2eaf3;
+  --muted: #7a90a8;
+  --faint: #3a4a5a;
+
+  /* Semantic */
+  --green: #22c55e;
+  --amber: #f59e0b;
+  --red: #ef4444;
+
+  /* Typography */
+  :root {
+    --font-display: "Inter", "Helvetica Neue", Arial, sans-serif;
+    --font-body: "Roboto", "Helvetica Neue", Arial, sans-serif;
+    --font-mono: "Source Code Pro", "Fira Code", monospace;
+  }
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-full: 9999px;
+
+  /* Shadows */
+  --shadow-brand: 0 0 20px rgba(59, 210, 240, 0.3);
+  --shadow-brand-lg: 0 0 40px rgba(59, 210, 240, 0.4);
+  --shadow-dark: 0 20px 60px rgba(0, 0, 0, 0.5);
+}
+
+/* ── Global reset ─────────────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  scroll-behavior: smooth;
+  height: auto;
+  min-height: 100%;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+::-webkit-scrollbar-thumb {
+  background: var(--brand-glow);
+  border-radius: 4px;
+}
+
+/* ── Shared keyframes ─────────────────────────────── */
+@keyframes drift1 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(40px, 60px);
+  }
+}
+@keyframes drift2 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-50px, -40px);
+  }
+}
+@keyframes drift3 {
+  0%,
+  100% {
+    transform: translate(0, 0);
+  }
+  50% {
+    transform: translate(-30px, 50px);
+  }
+}
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(0.8);
+  }
+}
+@keyframes shimmer {
+  0% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes lineIn {
+  to {
+    opacity: 1;
+  }
+}
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-16px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

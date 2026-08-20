@@ -1,0 +1,89 @@
+/* Sidebar.css */
+.sidebar {
+  width: 250px;
+  background-color: #1f2937; /* dark gray */
+  color: #fff;
+  height: 100vh;
+  padding: 1rem;
+}
+
+.sidebar h2 {
+  font-size: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.sidebar .menu-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.sidebar .menu-item:hover {
+  background-color: #374151; /* slightly lighter */
+}
+
+.collapse-btn {
+  margin-left: auto;
+  cursor: pointer;
+}
+.ci-left {
+  width: 240px;
+  min-width: 240px;
+  transition: width 0.25s ease;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border);
+}
+
+.ci-left.collapsed {
+  width: 64px;
+  min-width: 64px;
+}
+
+.ci-logo {
+  padding: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.ci-logo-icon {
+  width: 32px;
+  height: 32px;
+  background: var(--brand);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: #0a0c10;
+}
+
+.ci-chat-item {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 7px 10px 7px 12px;
+  margin: 1px 6px;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--text-secondary);
+  transition: all 0.15s;
+}
+
+.ci-chat-item:hover {
+  background: var(--bg-raised);
+}
+
+.ci-chat-item.active {
+  background: var(--brand-dim);
+  color: var(--brand);
+}
+
+.ci-chat-item.active .ci-chat-name {
+  color: var(--brand);
+  font-weight: 600;
+}
