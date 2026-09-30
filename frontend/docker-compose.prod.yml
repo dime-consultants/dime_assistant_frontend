@@ -1,0 +1,9 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dime-assistant-frontend
+    ports:
+      - "3001:80"
+    restart: unless-stopped
