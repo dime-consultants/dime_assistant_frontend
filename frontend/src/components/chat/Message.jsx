@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { sendMessage, getThread } from "../chat/index";
+import { sendMessage, getThread, downloadDocument } from "../chat/index";
 
 function formatMessageTime(timestamp) {
   if (!timestamp) {
@@ -79,6 +79,31 @@ export default function Messages({ threadId, onThreadRenamed }) {
     setAttachments((prev) => prev.filter((item) => item.id !== id));
   };
 
+  // Downloads a generated document as a real browser save, not a bare
+  // cross-origin navigation (the frontend and backend are on different
+  // domains, so a plain <a href> there silently drops the `download`
+  // attribute and can't force a filename/save prompt).
+  const handleAttachmentDownload = async (msg) => {
+    if (!msg.doc_id) {
+      window.open(msg.attachment_url, "_blank", "noopener,noreferrer");
+      return;
+    }
+    try {
+      const response = await downloadDocument(msg.doc_id);
+      const url = URL.createObjectURL(response.data);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = msg.attachment_filename || "download";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+    } catch (err) {
+      console.error("Attachment download failed:", err);
+      window.open(msg.attachment_url, "_blank", "noopener,noreferrer");
+    }
+  };
+
   const handleSend = async () => {
     if ((!text.trim() && attachments.length === 0) || !threadId || loading) return;
 
@@ -137,6 +162,7 @@ export default function Messages({ threadId, onThreadRenamed }) {
           timestamp: new Date().toISOString(),
           attachment_url: res.ai_message?.attachment_url || "",
           attachment_filename: res.ai_message?.attachment_filename || "",
+          doc_id: res.intent_result?.data?.doc_id || null,
         },
       ]);
 
@@ -204,12 +230,10 @@ export default function Messages({ threadId, onThreadRenamed }) {
               <div className="ci-bubble">{msg.content}</div>
               {msg.attachment_url && (
                 <div className="ci-message-attachments">
-                  <a
+                  <button
+                    type="button"
                     className="ci-attachment-item file ci-generated-doc"
-                    href={msg.attachment_url}
-                    download={msg.attachment_filename || undefined}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    onClick={() => handleAttachmentDownload(msg)}
                   >
                     <div className="ci-attachment-file">
                       <span className="ci-attachment-icon">📄</span>
@@ -218,7 +242,7 @@ export default function Messages({ threadId, onThreadRenamed }) {
                       </span>
                       <span className="ci-attachment-download">⬇</span>
                     </div>
-                  </a>
+                  </button>
                 </div>
               )}
               {msg.attachments?.length > 0 && (

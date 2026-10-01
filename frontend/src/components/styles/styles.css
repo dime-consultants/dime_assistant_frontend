@@ -451,9 +451,12 @@ body,
 
 .ci-generated-doc {
   display: block;
+  width: 100%;
+  text-align: left;
   text-decoration: none;
   color: inherit;
   cursor: pointer;
+  font: inherit;
   transition: border-color 0.15s ease, background 0.15s ease;
 }
 
